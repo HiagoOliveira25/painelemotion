@@ -10,7 +10,7 @@ import pandas as pd
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.SOLAR])
 
 header_list = ['Time', 'Estado de Carga', 'Velocidade', 'Temperatura1', 'Temperatura2', 'Temperatura3', 'Temperatura4', 'RPM1', 'RPM2', 'RPM3', 'RPM4', 'TEMPERATURA MOTOR']
-arq = pd.read_csv('bitcoin_data.csv', names=header_list)
+arq = pd.read_csv('data.csv', names=header_list)
 
 
 card_style = {
@@ -118,7 +118,7 @@ def update_card(n_intervals):
     if n_intervals == 0:
         raise PreventUpdate
     else:
-        arq2 = pd.read_csv('bitcoin_data.csv', names=header_list)
+        arq2 = pd.read_csv('data.csv', names=header_list)
         t3_r1 = arq2['Temperatura3'].tail(1).iloc[0]
     if t3_r1 > 60:
         return [

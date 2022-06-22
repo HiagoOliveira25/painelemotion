@@ -107,7 +107,7 @@ def update_card(n_intervals):
     else:
         header_list = ['Time', 'Estado de Carga', 'Velocidade', 'Temperatura1', 'Temperatura2', 'Temperatura3',
                        'Temperatura4', 'RPM1', 'RPM2', 'RPM3', 'RPM4', 'TEMPERATURA MOTOR']
-        t1_df = pd.read_csv('bitcoin_data.csv', names=header_list)
+        t1_df = pd.read_csv('data.csv', names=header_list)
         t1_ec = t1_df['Temperatura1'].tail(1).iloc[0]
         t2_ec = t1_df['Temperatura2'].tail(1).iloc[0]
         t1_df['velocidade'] = t1_df['Velocidade'].diff()
@@ -212,7 +212,7 @@ def update_card(n_intervals):
     else:
         header_list = ['Time', 'Estado de Carga', 'Velocidade', 'Temperatura1', 'Temperatura2', 'Temperatura3',
                        'Temperatura4', 'RPM1', 'RPM2', 'RPM3', 'RPM4', 'TEMPERATURA MOTOR']
-        b_df = pd.read_csv('bitcoin_data.csv', names=header_list)
+        b_df = pd.read_csv('data.csv', names=header_list)
         b_ec = b_df['Estado de Carga'].tail(1).iloc[0]
         b_df['velocidade'] = b_df['Velocidade'].diff()
         b_variacao_velocidade = b_df['velocidade'].tail(1).iloc[0]
@@ -311,7 +311,7 @@ def update_card(n_intervals):
     else:
         header_list = ['Time', 'Estado de Carga', 'Velocidade', 'Temperatura1', 'Temperatura2', 'Temperatura3',
                        'Temperatura4', 'RPM1', 'RPM2', 'RPM3', 'RPM4', 'TEMPERATURA MOTOR']
-        t1_df = pd.read_csv('bitcoin_data.csv', names=header_list)
+        t1_df = pd.read_csv('data.csv', names=header_list)
         t3_ec = t1_df['Temperatura3'].tail(1).iloc[0]
         t4_ec = t1_df['Temperatura4'].tail(1).iloc[0]
         t1_df['velocidade'] = t1_df['Velocidade'].diff()
@@ -416,7 +416,7 @@ def update_card(n_intervals):
     else:
         header_list = ['Time', 'Estado de Carga', 'Velocidade', 'Temperatura1', 'Temperatura2', 'Temperatura3',
                        'Temperatura4', 'RPM1', 'RPM2', 'RPM3', 'RPM4', 'TEMPERATURA MOTOR']
-        t1_df = pd.read_csv('bitcoin_data.csv', names=header_list)
+        t1_df = pd.read_csv('data.csv', names=header_list)
         rpm1_ec = t1_df['RPM1'].tail(1).iloc[0]
         rpm2_ec = t1_df['RPM2'].tail(1).iloc[0]
         t1_df['velocidade'] = t1_df['Velocidade'].diff()
@@ -521,7 +521,7 @@ def update_card(n_intervals):
     else:
         header_list = ['Time', 'Estado de Carga', 'Velocidade', 'Temperatura1', 'Temperatura2', 'Temperatura3',
                        'Temperatura4', 'RPM1', 'RPM2', 'RPM3', 'RPM4', 'TEMPERATURA MOTOR']
-        a_df = pd.read_csv('bitcoin_data.csv', names=header_list)
+        a_df = pd.read_csv('data.csv', names=header_list)
         a_ec = a_df['Estado de Carga'].tail(1).iloc[0]
         a_df['velocidade'] = a_df['Velocidade'].diff()
         a_variacao_velocidade = a_df['velocidade'].tail(1).iloc[0]
@@ -650,7 +650,7 @@ def update_card(n_intervals):
     else:
         header_list = ['Time', 'Estado de Carga', 'Velocidade', 'Temperatura1', 'Temperatura2', 'Temperatura3',
                        'Temperatura4', 'RPM1', 'RPM2', 'RPM3', 'RPM4', 'TEMPERATURA MOTOR']
-        t1_df = pd.read_csv('bitcoin_data.csv', names=header_list)
+        t1_df = pd.read_csv('data.csv', names=header_list)
         rpm3_ec = t1_df['RPM3'].tail(1).iloc[0]
         rpm4_ec = t1_df['RPM4'].tail(1).iloc[0]
         t1_df['velocidade'] = t1_df['Velocidade'].diff()
