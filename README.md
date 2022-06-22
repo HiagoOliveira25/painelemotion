@@ -18,6 +18,10 @@ Atualmente o Painel já está pronto e funcional, sendo necessário apenas adici
 
 Todo o layout do painel está sendo refeito, utilizando a biblioteca **dash bootstrap components** [dbc](https://dash-bootstrap-components.opensource.faculty.ai/)
 
-** Painel atual e pronto**
+index2.py >> Painel pronto
+
+app.py >> Novo painel
+
+**Painel atual e pronto**
 
 <img src="assets/painel_atual.png" Align='center' style="border-radius: 40px 40px 0px 0px;">
