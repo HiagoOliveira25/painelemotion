@@ -25,3 +25,9 @@ app.py >> Novo painel
 **Painel atual e pronto**
 
 <img src="assets/painel_atual.png" Align='center' style="border-radius: 40px 40px 0px 0px;">
+
+<div>
+<a href="https://github.com/liniiker">
+<img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=seu-usuário-aqui&layout=compact&langs_count=7&theme=dracula"/>
+<img height="180em" src="https://github-readme-stats.vercel.app/api?username=seu-usuário-aqui&show_icons=true&theme=dracula&include_all_commits=true&count_private=true"/>
+</div>
