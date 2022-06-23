@@ -80,14 +80,15 @@ def update_card(n_intervals):
     if t1_r1 > 60:
         return [
                     html.Div([
-                        html.H6('{0:,.2f}'.format(t1_r1),
+                        dbc.Row([
+                        dbc.Col([html.H6('{0:,.2f}'.format(t1_r1),
                                 style={'color': 'red',
                                        'font-weight': 'bold'},
-                                className='coin_price'),
-                        html.H6('{0:,.2f}'.format(t1_r1),
+                                className='coin_price')]),
+                        dbc.Col([html.H6('{0:,.2f}'.format(t1_r1),
                                 style={'color': 'red',
-                                       'font-weight': 'bold'},),
-                    ]),
+                                       'font-weight': 'bold'},)]),
+                    ])]),
                 
         ]
 
