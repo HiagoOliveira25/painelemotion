@@ -15,8 +15,8 @@ app.layout = html.Div([
 
     dbc.Row([
         dbc.Col([
-            dbc.CardImg(src = "assets/logo_branco.png",
-                     style = {'height':'67px',
+            dbc.CardImg(src ="images/logo_branco.png",
+                        style = {'height':'67px',
                                 'width':'135px',
                                 'padding-left':'1vh'})
                 ], width=4
@@ -27,9 +27,9 @@ app.layout = html.Div([
                 ], width=4
         ),
         dbc.Col([
-            dbc.CardImg(src = "assets/logoufpb.png",
-                    className = 'align-self-right',
-                     style = {'height':'64px',
+            dbc.CardImg(src ="images/logoufpb.png",
+                        className = 'align-self-right',
+                        style = {'height':'64px',
                                 'width':'45px',
                                 })
                 ], width=4
@@ -41,7 +41,7 @@ app.layout = html.Div([
             dbc.Card(
                 dbc.CardBody(
                      dbc.CardImg(
-                     src = "assets/logo_branco.png",
+                     src ="images/logo_branco.png",
                      style = {'height':'67px',
                         'width':'135px',
                         'padding-left':'1vh'}
