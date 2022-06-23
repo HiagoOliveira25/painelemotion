@@ -6,10 +6,9 @@ from datetime import datetime
 from dash.exceptions import PreventUpdate
 from dash.dependencies import Input, Output
 import pandas as pd
+import dash_bootstrap_components.themes
 
-external_stylesheets = [dbc.themes.SLATE]
-
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.SOLAR])
 
 header_list = ['Time', 'Estado de Carga', 'Velocidade', 'Temperatura1', 'Temperatura2', 'Temperatura3', 'Temperatura4', 'RPM1', 'RPM2', 'RPM3', 'RPM4', 'TEMPERATURA MOTOR']
 arq = pd.read_csv('data.csv', names=header_list)
@@ -22,7 +21,7 @@ app.layout = html.Div([
 
     dbc.Row([
         dbc.Col([
-            dbc.CardImg(src ="images/logo_branco.png",
+            dbc.CardImg(src ="assets/logo_branco.png",
                         style = {'height':'67px',
                                 'width':'135px',
                                 'padding-left':'1vh'})
@@ -34,7 +33,7 @@ app.layout = html.Div([
                 ], width=4
         ),
         dbc.Col([
-            dbc.CardImg(src ="images/logoufpb.png",
+            dbc.CardImg(src ="assets/logoufpb.png",
                         className = 'align-self-right',
                         style = {'height':'64px',
                                 'width':'45px',
