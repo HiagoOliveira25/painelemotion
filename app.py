@@ -2,13 +2,14 @@ import dash
 import dash_bootstrap_components as dbc
 from dash import html
 from dash import dcc
+import dash_daq as daq
 from datetime import datetime
 from dash.exceptions import PreventUpdate
 from dash.dependencies import Input, Output
 import pandas as pd
-import dash_bootstrap_components.themes
 
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.SOLAR])
+
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 header_list = ['Time', 'Estado de Carga', 'Velocidade', 'Temperatura1', 'Temperatura2', 'Temperatura3', 'Temperatura4', 'RPM1', 'RPM2', 'RPM3', 'RPM4', 'TEMPERATURA MOTOR']
 arq = pd.read_csv('data.csv', names=header_list)
@@ -40,7 +41,7 @@ app.layout = html.Div([
                                 })
                 ], width=4
         ),
-    ]),
+    ], style = {'background-color':'#17191a'}, className='mb-4'), # mb-4 aparentemente serve como um padding bot
 
     dbc.Row(html.Hr(),style = {'padding-top':'1vh'}),
     html.Div([
@@ -54,7 +55,7 @@ app.layout = html.Div([
             dbc.Card([
                 dbc.CardHeader(html.H1('card 1')),
                 dbc.CardBody(html.Div(id='card_1'))
-            ], color='success', style = card_style)
+            ], color='info', style = card_style)
         ], width= 4),
         dbc.Col([
             dbc.Card([
@@ -149,8 +150,7 @@ def update_card(n_intervals):
                     html.Div([
                         html.H6('{0:,.2f}'.format(t2_r1),
                                 style={'color': 'red',
-                                       'font-weight': 'bold'},
-                                className='coin_price'),
+                                       'font-weight': 'bold'},),
                         html.H6('{0:,.2f}'.format(t2_r1),
                                 style={'color': 'red',
                                        'font-weight': 'bold'},),
