@@ -39,11 +39,11 @@ app.layout = html.Div([
                         style = {'height':'64px',
                                 'width':'45px',
                                 })
-                ], width=4
-        ),
-    ], style = {'background-color':'#17191a'}, className='mb-4'), # mb-4 aparentemente serve como um padding bot
+                ], width=4),
+        ], style = {'background-color':'#181a25'},
+    ), # mb-4 aparentemente serve como um padding bot
 
-    dbc.Row(html.Hr(),style = {'padding-top':'1vh'}),
+    dbc.Row(html.Hr(),style = {'color':'white', 'background-color':'#000138'}),
     html.Div([
         dcc.Interval(id = 'update_value',
                      interval = 500,
@@ -53,23 +53,23 @@ app.layout = html.Div([
     dbc.Row([
         dbc.Col([
             dbc.Card([
-                dbc.CardHeader(html.H1('card 1')),
+                html.H2('Roda Dianteira Esquerda', style = {'color':'white', 'textAlign':'center'}),
                 dbc.CardBody(html.Div(id='card_1'))
-            ], color='info', style = card_style)
+            ], color='#112c38', style = card_style)
         ], width= 4),
         dbc.Col([
             dbc.Card([
-                dbc.CardHeader(html.H1('card 2')),
+                html.H2('VELOCIDADE', style = {'color':'white', 'textAlign':'center'}),
                 dbc.CardBody(html.Div(id='card_2'))
-            ], color='success', style = card_style)
+            ], color='#112c38', style = card_style)
         ], width= 4),
         dbc.Col([
             dbc.Card([
-                dbc.CardHeader(html.H1('card 3')),
+                html.H2('Roda Dianteira Direita', style={'color': 'white', 'textAlign': 'center'}),
                 dbc.CardBody(html.Div(id='card_3'))
-            ], color='success', style = card_style)
-        ], width= 4),
-    ], className="mb-4"),
+            ], color='#112c38', style=card_style)
+        ], width=4),
+    ], style = {'background-color':'#000138'}, className="mb-4"),
 ])
 
 @app.callback(Output('card_1','children'),
@@ -80,23 +80,30 @@ def update_card(n_intervals):
     else:
         arq2 = pd.read_csv('data.csv', names=header_list)
         t1_r1 = arq2['Temperatura1'].tail(1).iloc[0]
+        rpm1 = arq2['RPM1'].tail(1).iloc[0]
     if t1_r1 > 60:
         return [
-                    html.Div([
-                        dbc.Row([
-                            dbc.Col([
-                                html.H6('{0:,.2f}'.format(t1_r1),
-                                        style={'color': 'red',
-                                                'font-weight': 'bold'},
-                                        )
-                                    ]),
-                            dbc.Col([
-                                html.H6('{0:,.2f}'.format(t1_r1),
-                                        style={'color': 'red',
-                                                'font-weight': 'bold'},
-                                        )
-                                    ]),
-                    ])]),       
+            html.Div([
+                dbc.Row([
+                    dbc.Col([
+                        html.Div([
+                            daq.LEDDisplay(
+                                label='TEMPERATURA', style = {'color':'white'},
+                                value=t1_r1,
+                                color='white',
+                                backgroundColor="orange"
+                                    ),
+                            html.Br(),
+                            daq.LEDDisplay(
+                                label='RPM', style={'color': 'white'},
+                                value=rpm1,
+                                color='white',
+                                backgroundColor="#112c38"
+                                    )
+                                ])
+                            ]),
+                    ])
+            ]),
         ]
  
     if 30 <= t1_r1 <= 60:
@@ -138,55 +145,113 @@ def update_card(n_intervals):
                 
         ]
 
-@app.callback(Output('card_2','children'),
-                [Input('update_value','n_intervals')])
-def update_card(n_intervals):
-    if n_intervals == 0:
-        raise PreventUpdate
-    else:
-        t2_r1 = arq['Temperatura2'].tail(1).iloc[0]
-    if t2_r1 > 60:
-        return [
-                    html.Div([
-                        html.H6('{0:,.2f}'.format(t2_r1),
-                                style={'color': 'red',
-                                       'font-weight': 'bold'},),
-                        html.H6('{0:,.2f}'.format(t2_r1),
-                                style={'color': 'red',
-                                       'font-weight': 'bold'},),
-                    ]),
-                
-        ]
-
-@app.callback(Output('card_3','children'),
-                [Input('update_value','n_intervals')])
+@app.callback(Output('card_2', 'children'),
+              [Input('update_value', 'n_intervals')])
 def update_card(n_intervals):
     if n_intervals == 0:
         raise PreventUpdate
     else:
         arq2 = pd.read_csv('data.csv', names=header_list)
-        t3_r1 = arq2['Temperatura3'].tail(1).iloc[0]
-    if t3_r1 > 60:
+        velo = arq2['Velocidade'].tail(1).iloc[0]
+    if velo > 0:
         return [
             html.Div([
-                dbc.Col([html.H6('{0:,.2f}'.format(t3_r1),
-                        style={'color': 'red',
-                                'font-weight': 'bold'},)]),
-                dbc.Col([html.H6('{0:,.2f}'.format(t3_r1),
-                        style={'color': 'red',
-                                'font-weight': 'bold'},)]),
-                    ]),       
-        ]
-    if 30 <= t3_r1 <= 60:
-        return [
-            html.Div([
-                dbc.Col([html.H6('{0:,.2f}'.format(t3_r1),
-                        style={'color': 'orange',
-                        'font-weight': 'bold'},)]),
-                dbc.Col([html.H6('{0:,.2f}'.format(t3_r1),
-                         style={'color': 'orange',
-                        'font-weight': 'bold'},)]),
+                dbc.Row([
+                    dbc.Col([
+                        html.Div([
+                            daq.Gauge(
+                                color={"gradient": True, "ranges": {"green": [0, 40], "yellow": [40, 80], "red": [80, 150]}},
+                                showCurrentValue=True,
+                                units="KMH",
+                                value=velo,
+                                label='VELOCIMETRO', style={'color': 'white'},
+                                max=150,
+                                min=0
+                            ),
+                            daq.LEDDisplay(
+                                value=velo,
+                                color='white',
+                                backgroundColor="#112c38",
+                                style = {'textAlign':'center'}
+                            )
+                        ])
+                    ]),
+                ])
             ]),
+        ]
+
+
+@app.callback(Output('card_3', 'children'),
+              [Input('update_value', 'n_intervals')])
+def update_card(n_intervals):
+    if n_intervals == 0:
+        raise PreventUpdate
+    else:
+        arq2 = pd.read_csv('data.csv', names=header_list)
+        t2_r2 = arq2['Temperatura2'].tail(1).iloc[0]
+        rpm2 = arq2['RPM2'].tail(1).iloc[0]
+    if t2_r2 > 60:
+        return [
+            html.Div([
+                dbc.Row([
+                    dbc.Col([
+                        html.Div([
+                            daq.LEDDisplay(
+                                label='TEMPERATURA', style={'color': 'white'},
+                                value=t2_r2,
+                                color='white',
+                                backgroundColor="orange"
+                            ),
+                            html.Br(),
+                            daq.LEDDisplay(
+                                label='RPM', style={'color': 'white'},
+                                value=rpm2,
+                                color='white',
+                                backgroundColor="#112c38"
+                            )
+                        ])
+                    ]),
+                ])
+            ]),
+        ]
+
+    if 30 <= t2_r2 <= 60:
+        return [
+            html.Div([
+                dbc.Row([
+                    dbc.Col([
+                        html.H6('{0:,.2f}'.format(t2_r2),
+                                style={'color': 'orange',
+                                       'font-weight': 'bold'},
+                                )
+                    ]),
+                    dbc.Col([
+                        html.H6('{0:,.2f}'.format(t2_r2),
+                                style={'color': 'orange',
+                                       'font-weight': 'bold'},
+                                )
+                    ]),
+                ])]),
+        ]
+
+    if t2_r2 < 30:
+        return [
+            html.Div([
+                dbc.Row([
+                    dbc.Col([
+                        html.H6('{0:,.2f}'.format(t2_r2),
+                                style={'color': 'green',
+                                       'font-weight': 'bold'},
+                                )
+                    ]),
+                    dbc.Col([
+                        html.H6('{0:,.2f}'.format(t2_r2),
+                                style={'color': 'green',
+                                       'font-weight': 'bold'},
+                                )
+                    ]),
+                ])]),
+
         ]
 if __name__ == '__main__':
     app.run_server(debug = True, port = 2020)

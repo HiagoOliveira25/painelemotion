@@ -29,7 +29,7 @@ app.layout = html.Div(
         dbc.Row([
             dbc.Col([
                 dbc.Card([
-                    dbc.CardHeader(html.H1('card 1'), style = {'textAlign':'center'}),
+                    dbc.CardHeader(html.H1('RODA DIANTEIRA ESQUERDA'), style = {'textAlign':'center'}),
                     dbc.CardBody(html.Div(id='card1'))
                 ])
             ])
@@ -53,10 +53,10 @@ def update(n_intervals):
         return [
             html.Div(
                 daq.LEDDisplay(
-                    label='DISPLAY',
+                    label='TEMPERATURA',
                     value=t1_r1,
                     color='white',
-                    backgroundColor="black"
+                    backgroundColor="orange"
                 )
             )
         ]
