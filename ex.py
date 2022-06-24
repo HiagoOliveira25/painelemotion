@@ -30,15 +30,7 @@ app.layout = html.Div(
             dbc.Col([
                 dbc.Card([
                     dbc.CardHeader(html.H1('card 1'), style = {'textAlign':'center'}),
-                    dbc.CardBody(html.Div(
-                        daq.LEDDisplay(
-                            id="my-leddisplay",
-                            label = 'DISPLAY',
-                            value="40",
-                            color='white',
-                            backgroundColor="black"
-                        )
-                    ))
+                    dbc.CardBody(html.Div(id='card1'))
                 ])
             ])
         ])
@@ -49,7 +41,7 @@ app.layout = html.Div(
 # *************************************************************************
 # must have Dash 1.16.0 or higher for this to work
 @app.callback(
-    Output("my-leddisplay", "value"),
+    Output("card1", "children"),
     Input('update_value', 'n_intervals')
 )
 def update(n_intervals):
@@ -58,7 +50,16 @@ def update(n_intervals):
     arq2 = pd.read_csv('data.csv', names=header_list)
     t1_r1 = arq2['Temperatura1'].tail(1).iloc[0]
     if t1_r1 > 60:
-        return t1_r1
+        return [
+            html.Div(
+                daq.LEDDisplay(
+                    label='DISPLAY',
+                    value=t1_r1,
+                    color='white',
+                    backgroundColor="black"
+                )
+            )
+        ]
 
 if __name__ == "__main__":
     app.run_server(port=3040, debug=True)
