@@ -3,7 +3,7 @@ import csv
 from datetime import datetime
 
 # Selecionar porta que o arduino está conectado
-PORT = 'COM12'
+PORT = 'COM11'
 ser = serial.Serial(PORT, 9600)
 
 while True:
@@ -27,7 +27,7 @@ while True:
 
         print(dt_string, estado_carga, velocidade, t1, t2, t3, t4, r1, r2, r3, r4, tm)
 
-        with open("bitcoin_data.csv", "a") as f:
+        with open("data.csv", "a") as f:
             writer = csv.writer(f, delimiter = ",")
             writer.writerow([dt_string, estado_carga, velocidade, t1, t2, t3, t4, r1, r2, r3, r4, tm])
             # writer.writerow([dt_string, velocidade, estado_carga, t1, t2, t3, t4, r1, r2, r3, r4, tm])

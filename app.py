@@ -55,7 +55,7 @@ app.layout = html.Div([
             dbc.Card([
                 html.H2('Roda Dianteira Esquerda', style = {'color':'white', 'textAlign':'center'}),
                 dbc.CardBody(html.Div(id='card_1'))
-            ], color='#112c38', style = card_style)
+            ], color='#112c38', style={'height':'52vh'})
         ], width= 4),
         dbc.Col([
             dbc.Card([
@@ -67,7 +67,7 @@ app.layout = html.Div([
             dbc.Card([
                 html.H2('Roda Dianteira Direita', style={'color': 'white', 'textAlign': 'center'}),
                 dbc.CardBody(html.Div(id='card_3'))
-            ], color='#112c38', style=card_style)
+            ], color='#112c38', style={'height':'52vh'})
         ], width=4, style = {'padding-bottom':'10vh'}),
     ], style = {'background-color':'#000138'}),
 
@@ -102,17 +102,17 @@ def update_card(n_intervals):
         arq2 = pd.read_csv('data.csv', names=header_list)
         t1_r1 = arq2['Temperatura1'].tail(1).iloc[0]
         rpm1 = arq2['RPM1'].tail(1).iloc[0]
-    if t1_r1 > 60:
+    if t1_r1 > 80:
         return [
             html.Div([
                 dbc.Row([
                     dbc.Col([
                         html.Div([
                             daq.LEDDisplay(
-                                label='TEMPERATURA', style = {'color':'white'},
+                                label='TEMPERATURA ºc', style = {'color':'white'},
                                 value=t1_r1,
                                 color='white',
-                                backgroundColor="orange"
+                                backgroundColor="red"
                                     ),
                             html.Br(),
                             daq.LEDDisplay(
@@ -127,43 +127,54 @@ def update_card(n_intervals):
             ]),
         ]
  
-    if 30 <= t1_r1 <= 60:
+    if 30 <= t1_r1 <= 80:
         return [
-                    html.Div([
-                        dbc.Row([
-                            dbc.Col([
-                                html.H6('{0:,.2f}'.format(t1_r1),
-                                        style={'color': 'orange',
-                                                'font-weight': 'bold'},
-                                        )
-                                    ]),
-                            dbc.Col([
-                                html.H6('{0:,.2f}'.format(t1_r1),
-                                        style={'color': 'orange',
-                                                'font-weight': 'bold'},
-                                        )
-                                    ]),
-                    ])]),     
+            html.Div([
+                dbc.Row([
+                    dbc.Col([
+                        html.Div([
+                            daq.LEDDisplay(
+                                label='TEMPERATURA ºc', style = {'color':'white'},
+                                value=t1_r1,
+                                color='white',
+                                backgroundColor="gray"
+                                    ),
+                            html.Br(),
+                            daq.LEDDisplay(
+                                label='RPM', style={'color': 'white'},
+                                value=rpm1,
+                                color='white',
+                                backgroundColor="#112c38"
+                                    )
+                                ])
+                            ]),
+                    ])
+            ]),
         ]
     
     if t1_r1 < 30:
         return [
-                    html.Div([
-                        dbc.Row([
-                            dbc.Col([
-                                html.H6('{0:,.2f}'.format(t1_r1),
-                                        style={'color': 'green',
-                                                'font-weight': 'bold'},
-                                        )
-                                    ]),
-                            dbc.Col([
-                                html.H6('{0:,.2f}'.format(t1_r1),
-                                        style={'color': 'green',
-                                                'font-weight': 'bold'},
-                                        )
-                                    ]),
-                    ])]),
-                
+            html.Div([
+                dbc.Row([
+                    dbc.Col([
+                        html.Div([
+                            daq.LEDDisplay(
+                                label='TEMPERATURA ºc', style = {'color':'white'},
+                                value=t1_r1,
+                                color='white',
+                                backgroundColor="green"
+                                    ),
+                            html.Br(),
+                            daq.LEDDisplay(
+                                label='RPM', style={'color': 'white'},
+                                value=rpm1,
+                                color='white',
+                                backgroundColor="#112c38"
+                                    )
+                                ])
+                            ]),
+                    ])
+            ]),
         ]
 
 @app.callback(Output('card_2', 'children'),
@@ -201,6 +212,33 @@ def update_card(n_intervals):
                 ])
             ]),
         ]
+    if velo <= 0:
+        return [
+            html.Div([
+                dbc.Row([
+                    dbc.Col([
+                        html.Div([
+                            daq.Gauge(
+                                color={"gradient": True, "ranges": {"purple": [0, 20], "green": [20, 60], "yellow": [60, 80], "red": [80, 140], "#800903":[140, 150]}},
+                                showCurrentValue=True,
+                                units="KMH",
+                                value=velo,
+                                #label='VELOCIMETRO',
+                                style={'color': 'white', 'textAlign':'center'},
+                                max=150,
+                                min=0
+                            ),
+                            #daq.LEDDisplay(
+                            #    value=velo,
+                            #    color='white',
+                            #    backgroundColor="#112c38",
+                            #    style = {'textAlign':'center'}
+                            #)
+                        ])
+                    ]),
+                ])
+            ]),
+        ]
 
 
 @app.callback(Output('card_3', 'children'),
@@ -212,17 +250,17 @@ def update_card(n_intervals):
         arq2 = pd.read_csv('data.csv', names=header_list)
         t2_r2 = arq2['Temperatura2'].tail(1).iloc[0]
         rpm2 = arq2['RPM2'].tail(1).iloc[0]
-    if t2_r2 > 60:
+    if t2_r2 > 80:
         return [
             html.Div([
                 dbc.Row([
                     dbc.Col([
                         html.Div([
                             daq.LEDDisplay(
-                                label='TEMPERATURA', style={'color': 'white'},
+                                label='TEMPERATURA ºc', style={'color': 'white'},
                                 value=t2_r2,
                                 color='white',
-                                backgroundColor="orange"
+                                backgroundColor="red"
                             ),
                             html.Br(),
                             daq.LEDDisplay(
@@ -237,23 +275,29 @@ def update_card(n_intervals):
             ]),
         ]
 
-    if 30 <= t2_r2 <= 60:
+    if 30 <= t2_r2 <= 80:
         return [
             html.Div([
                 dbc.Row([
                     dbc.Col([
-                        html.H6('{0:,.2f}'.format(t2_r2),
-                                style={'color': 'orange',
-                                       'font-weight': 'bold'},
-                                )
+                        html.Div([
+                            daq.LEDDisplay(
+                                label='TEMPERATURA ºc', style={'color': 'white'},
+                                value=t2_r2,
+                                color='white',
+                                backgroundColor="gray"
+                            ),
+                            html.Br(),
+                            daq.LEDDisplay(
+                                label='RPM', style={'color': 'white'},
+                                value=rpm2,
+                                color='white',
+                                backgroundColor="#112c38"
+                            )
+                        ])
                     ]),
-                    dbc.Col([
-                        html.H6('{0:,.2f}'.format(t2_r2),
-                                style={'color': 'orange',
-                                       'font-weight': 'bold'},
-                                )
-                    ]),
-                ])]),
+                ])
+            ]),
         ]
 
     if t2_r2 < 30:
@@ -261,19 +305,24 @@ def update_card(n_intervals):
             html.Div([
                 dbc.Row([
                     dbc.Col([
-                        html.H6('{0:,.2f}'.format(t2_r2),
-                                style={'color': 'green',
-                                       'font-weight': 'bold'},
-                                )
+                        html.Div([
+                            daq.LEDDisplay(
+                                label='TEMPERATURA ºc', style={'color': 'white'},
+                                value=t2_r2,
+                                color='white',
+                                backgroundColor="green"
+                            ),
+                            html.Br(),
+                            daq.LEDDisplay(
+                                label='RPM', style={'color': 'white'},
+                                value=rpm2,
+                                color='white',
+                                backgroundColor="#112c38"
+                            )
+                        ])
                     ]),
-                    dbc.Col([
-                        html.H6('{0:,.2f}'.format(t2_r2),
-                                style={'color': 'green',
-                                       'font-weight': 'bold'},
-                                )
-                    ]),
-                ])]),
-
+                ])
+            ]),
         ]
 
 
@@ -286,17 +335,17 @@ def update_card(n_intervals):
         arq2 = pd.read_csv('data.csv', names=header_list)
         t3_r3 = arq2['Temperatura3'].tail(1).iloc[0]
         rpm3 = arq2['RPM3'].tail(1).iloc[0]
-    if t3_r3 > 60:
+    if t3_r3 > 80:
         return [
             html.Div([
                 dbc.Row([
                     dbc.Col([
                         html.Div([
                             daq.LEDDisplay(
-                                label='TEMPERATURA', style={'color': 'white'},
+                                label='TEMPERATURA ºc', style={'color': 'white'},
                                 value=t3_r3,
                                 color='white',
-                                backgroundColor="orange"
+                                backgroundColor="red"
                             ),
                             html.Br(),
                             daq.LEDDisplay(
@@ -311,23 +360,29 @@ def update_card(n_intervals):
             ]),
         ]
 
-    if 30 <= t3_r3 <= 60:
+    if 30 <= t3_r3 <= 80:
         return [
             html.Div([
                 dbc.Row([
                     dbc.Col([
-                        html.H6('{0:,.2f}'.format(t3_r3),
-                                style={'color': 'orange',
-                                       'font-weight': 'bold'},
-                                )
+                        html.Div([
+                            daq.LEDDisplay(
+                                label='TEMPERATURA ºc', style={'color': 'white'},
+                                value=t3_r3,
+                                color='white',
+                                backgroundColor="gray"
+                            ),
+                            html.Br(),
+                            daq.LEDDisplay(
+                                label='RPM', style={'color': 'white'},
+                                value=rpm3,
+                                color='white',
+                                backgroundColor="#112c38"
+                            )
+                        ])
                     ]),
-                    dbc.Col([
-                        html.H6('{0:,.2f}'.format(t3_r3),
-                                style={'color': 'orange',
-                                       'font-weight': 'bold'},
-                                )
-                    ]),
-                ])]),
+                ])
+            ]),
         ]
 
     if t3_r3 < 30:
@@ -335,19 +390,24 @@ def update_card(n_intervals):
             html.Div([
                 dbc.Row([
                     dbc.Col([
-                        html.H6('{0:,.2f}'.format(t3_r3),
-                                style={'color': 'green',
-                                       'font-weight': 'bold'},
-                                )
+                        html.Div([
+                            daq.LEDDisplay(
+                                label='TEMPERATURA ºc', style={'color': 'white'},
+                                value=t3_r3,
+                                color='white',
+                                backgroundColor="green"
+                            ),
+                            html.Br(),
+                            daq.LEDDisplay(
+                                label='RPM', style={'color': 'white'},
+                                value=rpm3,
+                                color='white',
+                                backgroundColor="#112c38"
+                            )
+                        ])
                     ]),
-                    dbc.Col([
-                        html.H6('{0:,.2f}'.format(t3_r3),
-                                style={'color': 'green',
-                                       'font-weight': 'bold'},
-                                )
-                    ]),
-                ])]),
-
+                ])
+            ]),
         ]
 
 
@@ -377,7 +437,7 @@ def update_card(n_intervals):
                             ),
                             html.Br(),
                             daq.LEDDisplay(
-                                label='TEMPERATURA MOTOR',style={'color': 'white'},
+                                label='TEMPERATURA MOTOR ºc',style={'color': 'white'},
                                 value=tm,
                                 color='white',
                                 backgroundColor="#112c38"
@@ -398,17 +458,17 @@ def update_card(n_intervals):
         arq2 = pd.read_csv('data.csv', names=header_list)
         t4_r4 = arq2['Temperatura4'].tail(1).iloc[0]
         rpm4 = arq2['RPM4'].tail(1).iloc[0]
-    if t4_r4 > 60:
+    if t4_r4 > 80:
         return [
             html.Div([
                 dbc.Row([
                     dbc.Col([
                         html.Div([
                             daq.LEDDisplay(
-                                label='TEMPERATURA', style={'color': 'white'},
+                                label='TEMPERATURA ºc', style={'color': 'white'},
                                 value=t4_r4,
                                 color='white',
-                                backgroundColor="orange"
+                                backgroundColor="red"
                             ),
                             html.Br(),
                             daq.LEDDisplay(
@@ -423,23 +483,29 @@ def update_card(n_intervals):
             ]),
         ]
 
-    if 30 <= t4_r4 <= 60:
+    if 30 <= t4_r4 <= 80:
         return [
             html.Div([
                 dbc.Row([
                     dbc.Col([
-                        html.H6('{0:,.2f}'.format(t4_r4),
-                                style={'color': 'orange',
-                                       'font-weight': 'bold'},
-                                )
+                        html.Div([
+                            daq.LEDDisplay(
+                                label='TEMPERATURA ºc', style={'color': 'white'},
+                                value=t4_r4,
+                                color='white',
+                                backgroundColor="gray"
+                            ),
+                            html.Br(),
+                            daq.LEDDisplay(
+                                label='RPM', style={'color': 'white'},
+                                value=rpm4,
+                                color='white',
+                                backgroundColor="#112c38"
+                            )
+                        ])
                     ]),
-                    dbc.Col([
-                        html.H6('{0:,.2f}'.format(t4_r4),
-                                style={'color': 'orange',
-                                       'font-weight': 'bold'},
-                                )
-                    ]),
-                ])]),
+                ])
+            ]),
         ]
 
     if t4_r4 < 30:
@@ -447,19 +513,24 @@ def update_card(n_intervals):
             html.Div([
                 dbc.Row([
                     dbc.Col([
-                        html.H6('{0:,.2f}'.format(t4_r4),
-                                style={'color': 'green',
-                                       'font-weight': 'bold'},
-                                )
+                        html.Div([
+                            daq.LEDDisplay(
+                                label='TEMPERATURA ºc', style={'color': 'white'},
+                                value=t4_r4,
+                                color='white',
+                                backgroundColor="green"
+                            ),
+                            html.Br(),
+                            daq.LEDDisplay(
+                                label='RPM', style={'color': 'white'},
+                                value=rpm4,
+                                color='white',
+                                backgroundColor="#112c38"
+                            )
+                        ])
                     ]),
-                    dbc.Col([
-                        html.H6('{0:,.2f}'.format(t4_r4),
-                                style={'color': 'green',
-                                       'font-weight': 'bold'},
-                                )
-                    ]),
-                ])]),
-
+                ])
+            ]),
         ]
 if __name__ == '__main__':
     app.run_server(debug=True, port=2020)
