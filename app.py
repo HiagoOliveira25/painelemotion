@@ -22,19 +22,20 @@ app.layout = html.Div([
 
     dbc.Row([
         dbc.Col([
-            dbc.CardImg(src ="assets/logo_branco.png",
-                        style = {'height':'67px',
-                                'width':'135px',
-                                })
-                ], width=4
-        ),
+            dbc.CardImg(src="imagens/logo_branco.png",
+                        style={'height': '67px',
+                               'width': '135px',
+                               }
+                        )
+                ], width=4),
+
         dbc.Col([
-            html.Div("FÓRMULA E.MOTION UFPB", 
+            html.Div("FÓRMULA E.MOTION UFPB",
                     style = {'color': 'white', 'fontSize': 30, 'textAlign': 'center'})
-                ], width=4
-        ),
+                ], width=4),
+
         dbc.Col([
-            dbc.CardImg(src ="assets/logoufpb.png",
+            dbc.CardImg(src ="imagens/logoufpb.png",
                         className = 'align-self-center',
                         style = {'height':'64px',
                                 'width':'45px',
@@ -126,7 +127,7 @@ def update_card(n_intervals):
                     ])
             ]),
         ]
- 
+
     if 30 <= t1_r1 <= 80:
         return [
             html.Div([
@@ -151,7 +152,7 @@ def update_card(n_intervals):
                     ])
             ]),
         ]
-    
+
     if t1_r1 < 30:
         return [
             html.Div([
@@ -533,4 +534,5 @@ def update_card(n_intervals):
             ]),
         ]
 if __name__ == '__main__':
-    app.run_server(debug=True, port=2020)
+    app.run_server(debug=True, port=8888)
+    #app.run_server(host='0.0.0.0', debug=True)
