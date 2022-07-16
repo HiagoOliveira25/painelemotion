@@ -35,7 +35,7 @@ app.layout = html.Div([
                 ], width=4),
 
         dbc.Col([
-            dbc.CardImg(src ="img/logoufpb.png",
+            dbc.CardImg(src ="logos/logoufpb.png",
                         className = 'align-self-center',
                         style = {'height':'64px',
                                 'width':'45px',
