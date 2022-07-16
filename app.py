@@ -22,7 +22,7 @@ app.layout = html.Div([
 
     dbc.Row([
         dbc.Col([
-            dbc.CardImg(src="imagens/logo_branco.png",
+            dbc.CardImg(src=r"C:\\Users\\elima\\Desktop\\E-MOTION\\painelemotion\\img\\logo_branco.png",
                         style={'height': '67px',
                                'width': '135px',
                                }
@@ -35,7 +35,7 @@ app.layout = html.Div([
                 ], width=4),
 
         dbc.Col([
-            dbc.CardImg(src ="imagens/logoufpb.png",
+            dbc.CardImg(src ="img/logoufpb.png",
                         className = 'align-self-center',
                         style = {'height':'64px',
                                 'width':'45px',
